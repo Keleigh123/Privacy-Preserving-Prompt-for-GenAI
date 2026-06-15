@@ -1,0 +1,3 @@
+HSBC is a restricted customer.
+Barclays is a restricted customer.
+Customer A is restricted.
