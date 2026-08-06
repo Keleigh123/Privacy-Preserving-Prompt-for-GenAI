@@ -1,25 +1,66 @@
+from presidio_analyzer import AnalyzerEngine
 import re
+from phonenumbers import PhoneNumberMatcher
+analyzer = AnalyzerEngine()
 
-EMAIL_PATTERN = r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
+# Generic API key (20+ alphanumeric, underscore or hyphen)
+API_KEY_PATTERN = r"\b[A-Za-z0-9_-]{20,}\b"
 
-PHONE_PATTERN = r'\+?\d[\d\s\-]{8,15}'
+# Bearer tokens
+BEARER_PATTERN = r"Bearer\s+[A-Za-z0-9\-._~+/]+=*"
 
-API_KEY_PATTERN = r'[A-Za-z0-9]{32,}'
+# JWT tokens
+JWT_PATTERN = r"eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+"
 
 def detect_regex(prompt):
 
     findings = []
 
-    emails = re.findall(EMAIL_PATTERN, prompt)
+    results = analyzer.analyze(
+        text=prompt,
+        language="en",
+           entities=[
+        "EMAIL_ADDRESS",
+        "CREDIT_CARD",
+        "IBAN_CODE",
+        "IP_ADDRESS"
+    ]
+    )
 
-    for e in emails:
-        findings.append(("EMAIL", e))
+    for result in results:
 
-    phones = re.findall(PHONE_PATTERN, prompt)
+        findings.append(
+            (
+                result.entity_type,
+                prompt[result.start:result.end]
+            )
+        )
 
-    for p in phones:
-        findings.append(("PHONE", p))
+      # Phone numbers using Google's library
+    for match in PhoneNumberMatcher(prompt, "GB"):
+        findings.append((
+            "PHONE_NUMBER",
+            prompt[match.start:match.end]
+        ))
 
-    #add the api finding
+  # Generic API Keys
+    for match in re.finditer(API_KEY_PATTERN, prompt):
+        findings.append((
+            "API_KEY",
+            match.group()
+        ))
 
+    # Bearer Tokens
+    for match in re.finditer(BEARER_PATTERN, prompt):
+        findings.append((
+            "BEARER_TOKEN",
+            match.group()
+        ))
+
+    # JWT Tokens
+    for match in re.finditer(JWT_PATTERN, prompt):
+        findings.append((
+            "JWT_TOKEN",
+            match.group()
+        ))
     return findings

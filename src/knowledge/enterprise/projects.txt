@@ -1,3 +1,11 @@
-Project Phoenix is confidential.
-Project Titan is internal only.
+Name: Project Sakura
+Alias: Sakura
+Sensitivity: HIGH
+Description: Confidential internal project.
+
+Name: Project Titan
+Alias: Titan
+Sensitivity: MEDIUM
+Description: Confidential internal project.
+
 Project Apollo contains customer migration information.
