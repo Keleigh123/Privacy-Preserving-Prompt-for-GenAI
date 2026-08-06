@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Project Sakura",
+        "aliases": ["Sakura"],
+        "sensitivity": "HIGH",
+        "description": "Confidential internal project."
+    },
+    {
+        "name": "Project Titan",
+        "aliases": ["Titan"],
+        "sensitivity": "MEDIUM",
+        "description": "Confidential internal project."
+    },
+    {
+        "name": "Project Apollo",
+        "aliases": ["Apollo"],
+        "sensitivity": "HIGH",
+        "description": "Contains customer migration information."
+    }
+]
