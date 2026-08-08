@@ -7,6 +7,8 @@ from risk.risk_aggregator import aggregate_signals
 from risk.risk_calculator import calculate_risk
 
 from sanitizers.prompt_sanitizer import sanitize_prompt
+from detectors.normalizer import normalize_text  
+from risk.intent_detector import intent_risk_multiplier
 
 from ollama import chat
 
@@ -14,7 +16,6 @@ MAX_SANITIZE_ATTEMPTS = 2
 
 
 def analyse_prompt(prompt):
-
     regex_results = detect_regex(prompt)
 
     ner_results = detect_entities(prompt)
@@ -32,7 +33,10 @@ def analyse_prompt(prompt):
         enterprise_context,
         semantic_context
     )
-
+    has_entities = bool(regex_results or ner_results or enterprise_context)
+    multiplier, intent_label = intent_risk_multiplier(prompt, has_entities)
+    evidence["intent"] = intent_label
+    evidence["base_score"] = min(evidence["base_score"] * multiplier, 100)
     score, level = calculate_risk(evidence)
 
     evidence["risk_score"] = score
@@ -73,8 +77,7 @@ def main():
 
     original_prompt = input("Enter your prompt: ")
 
-    current_prompt = original_prompt
-
+    current_prompt = normalize_text(original_prompt)
     for attempt in range(MAX_SANITIZE_ATTEMPTS + 1):
 
         print(f"\n--- Analysis Pass {attempt + 1} ---")
