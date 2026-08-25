@@ -1,3 +1,7 @@
+# Loads enterprise.json, embeds project names/aliases, and builds a FAISS
+
+# retrieve_context() does literal alias matching first, then leetspeak-decoded
+# alias matching, then falls back to embedding similarity (k=3, threshold 0.35).
 from pathlib import Path
 import json
 import faiss

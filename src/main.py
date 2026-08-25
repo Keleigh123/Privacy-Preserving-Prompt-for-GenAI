@@ -1,3 +1,6 @@
+# normalize -> analyse -> (sanitize if not LOW) loop,
+# up to MAX_SANITIZE_ATTEMPTS, then either approves or gives up.
+# explain_risk() calls a local Ollama model per pass
 from detectors.regex_detector import detect_regex
 from detectors.ner_detector import detect_entities
 from detectors.context_detector import get_enterprise_context

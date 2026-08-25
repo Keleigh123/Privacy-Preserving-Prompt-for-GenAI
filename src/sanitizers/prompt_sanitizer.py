@@ -1,3 +1,4 @@
+# Applies redaction (regex hits), token replacement (NER hits), and blackout (enterprise matches) to a prompt based on prior evidence.
 from sanitizers.redaction import redact_text
 from sanitizers.token_replacement import replace_entity
 

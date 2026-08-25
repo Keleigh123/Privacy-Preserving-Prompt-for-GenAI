@@ -1,3 +1,5 @@
+# Session-aware version of main.py: adds SessionRiskTracker across turns
+# and a separate semantic-only rejection path (is_semantic_only_risk).
 import sys
 
 from detectors.regex_detector import detect_regex

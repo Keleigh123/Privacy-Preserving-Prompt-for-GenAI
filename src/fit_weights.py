@@ -1,3 +1,4 @@
+# Offline calibration script: random-searches regex/NER/enterprise weights, co-occurrence bonus, and score/semantic thresholds against calibration_dataset.csv
 import sys
 import numpy as np
 import pandas as pd

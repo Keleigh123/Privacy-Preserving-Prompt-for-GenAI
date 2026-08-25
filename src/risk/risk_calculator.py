@@ -1,3 +1,5 @@
+# Converts evidence into a LOW/MEDIUM/HIGH/CRITICAL label.
+# Falls through to semantic_similarity thresholds only when base_score == 0
 def calculate_risk(evidence):
     score = evidence["base_score"]
     if score > 0:
