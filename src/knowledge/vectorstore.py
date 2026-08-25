@@ -1,40 +1,141 @@
 from pathlib import Path
+import json
+import faiss
+import numpy as np
 
-DATA_DIR = Path("src/knowledge/enterprise")
+from knowledge.embedding_model import embed
+from detectors.normalizer import decode_leetspeak
+
+
+DATA_DIR = Path(
+    "src/knowledge/enterprise"
+)
 
 
 def load_documents():
 
+    with open(
+        DATA_DIR / "enterprise.json",
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        projects = json.load(f)
+
     documents = []
+    records = []
 
-    for file in DATA_DIR.glob("*.txt"):
+    for project in projects:
 
-        with open(file, "r", encoding="utf-8") as f:
+        searchable = project["name"]
 
-            documents.extend(
-                [
-                    line.strip()
-                    for line in f.readlines()
-                    if line.strip()
-                ]
-            )
+        if "aliases" in project:
+            searchable += " " + " ".join(project["aliases"])
 
-    return documents
+        documents.append(searchable)
 
-def retrieve_context(prompt):
+        records.append(project)
 
-    docs = load_documents()
+    return documents, records
 
-    matches = []
 
-    prompt_lower = prompt.lower()
+documents, records = load_documents()
 
-    for doc in docs:
 
-        words = doc.lower().split()
+embeddings = embed(documents)
 
-        if any(word in prompt_lower for word in words):
+embeddings = np.array(
+    embeddings,
+    dtype="float32"
+)
 
-            matches.append(doc)
+faiss.normalize_L2(embeddings)
 
-    return matches[:5]
+index = faiss.IndexFlatIP(
+    embeddings.shape[1]
+)
+
+index.add(embeddings)
+
+
+def _find_literal_alias(text, project):
+
+    if project["name"].lower() in text.lower():
+        return project["name"]
+
+    for alias in project.get("aliases", []):
+
+        if alias.lower() in text.lower():
+            return alias
+
+    return None
+
+
+def retrieve_context(prompt, k=3):
+
+    results = []
+    matched_projects = set()
+
+    decoded = decode_leetspeak(prompt)
+
+    for project in records:
+
+        alias = _find_literal_alias(prompt, project)
+
+        if alias:
+            results.append({
+                "matched_text": alias,
+                "project": project["name"],
+                "sensitivity": project["sensitivity"]
+            })
+            matched_projects.add(project["name"])
+            continue
+
+        alias = _find_literal_alias(decoded, project)
+
+        if alias:
+            idx = decoded.lower().find(alias.lower())
+            original_span = prompt[idx: idx + len(alias)]
+
+            results.append({
+                "matched_text": original_span,
+                "project": project["name"],
+                "sensitivity": project["sensitivity"]
+            })
+            matched_projects.add(project["name"])
+
+    query = embed([prompt])
+
+    query = np.array(
+        query,
+        dtype="float32"
+    )
+
+    faiss.normalize_L2(query)
+
+    scores, indices = index.search(query, k)
+
+    for score, idx in zip(scores[0], indices[0]):
+
+        project = records[idx]
+
+        print(
+            f"Similarity: {score:.3f} | {project['name']}"
+        )
+
+        if project["name"] in matched_projects:
+            continue
+
+        if score < 0.35:
+            continue
+
+        matched = _find_literal_alias(prompt, project)
+
+        if matched:
+            results.append({
+                "matched_text": matched,
+                "project": project["name"],
+                "sensitivity": project["sensitivity"]
+            })
+
+    return results

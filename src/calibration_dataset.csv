@@ -1,0 +1,101 @@
+id,prompt,expected,email,phone,credit_card,iban,ip,api_key,person,org,gpe,loc,product,ent_high,ent_medium,semantic
+1,What is recursion?,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+2,Explain quicksort.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+3,Write a Python loop.,LOW,0,0,0,0,0,0,0,0,0,0,1,0,0,0.05
+4,Summarize machine learning.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+5,What is cloud computing?,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+6,Difference between TCP and UDP.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+7,Explain binary search.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+8,What is Docker?,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+9,Write a SQL JOIN example.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+10,Explain object-oriented programming.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+11,How does HTTPS work?,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+12,What is Kubernetes?,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+13,Explain REST APIs.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+14,What is encryption?,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+15,Explain hashing.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+16,Difference between RAM and SSD.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+17,What is an operating system?,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+18,Explain recursion with an example.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+19,Write a Java function.,LOW,0,0,0,0,0,0,0,0,0,0,1,0,0,0.05
+20,Explain data structures.,LOW,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05
+21,Email me at john.doe@example.com.,HIGH,1,0,0,0,0,0,0,0,0,0,0,0,0,0.1
+22,Send results to alice@test.org.,HIGH,1,0,0,0,0,0,0,0,0,0,0,0,0,0.1
+23,My email is jane99@gmail.com.,HIGH,1,0,0,0,0,0,0,0,0,0,0,0,0,0.1
+24,Notify admin@company.co.uk.,HIGH,1,0,0,0,0,0,0,0,0,0,0,0,0,0.1
+25,Contact bob.smith@yahoo.com.,HIGH,1,0,0,0,0,0,0,0,0,0,0,0,0,0.1
+26,Reach me at info@example.net.,HIGH,1,0,0,0,0,0,0,0,0,0,0,0,0,0.1
+27,Use support@internal.org.,HIGH,1,0,0,0,0,0,0,0,0,0,0,0,0,0.1
+28,Forward to david@email.com.,HIGH,1,0,0,0,0,0,0,0,0,0,0,0,0,0.1
+29,My work email is sam@enterprise.io.,HIGH,1,0,0,0,0,0,0,0,0,0,0,0,0,0.1
+30,Use user123@example.com.,HIGH,1,0,0,0,0,0,0,0,0,0,0,0,0,0.1
+31,Call me on +44 7700 900123.,HIGH,0,1,0,0,0,0,0,0,0,0,0,0,0,0.1
+32,Phone number is 07911123456.,HIGH,0,1,0,0,0,0,0,0,0,0,0,0,0,0.1
+33,My contact is +1 415 555 1234.,HIGH,0,1,0,0,0,0,0,0,0,0,0,0,0,0.1
+34,Reach me at +61 412 345 678.,HIGH,0,1,0,0,0,0,0,0,0,0,0,0,0,0.1
+35,Office phone is 02071234567.,HIGH,0,1,0,0,0,0,0,0,0,0,0,0,0,0.1
+36,Dial +91 9876543210.,HIGH,0,1,0,0,0,0,0,0,0,0,0,0,0,0.1
+37,Use 07123456789.,HIGH,0,1,0,0,0,0,0,0,0,0,0,0,0,0.1
+38,Call 5551234567.,HIGH,0,1,0,0,0,0,0,0,0,0,0,0,0,0.1
+39,Emergency number is +49 15123456789.,HIGH,0,1,0,0,0,0,0,0,0,0,0,0,0,0.1
+40,Phone: +33 612345678.,HIGH,0,1,0,0,0,0,0,0,0,0,0,0,0,0.1
+41,API key is ABCDEF1234567890ABCDEF1234567890.,CRITICAL,0,0,0,0,0,1,0,0,0,0,0,0,0,0.1
+42,Token: ZXCVBNMASDFGHJKLQWERTYUIOP123456.,CRITICAL,0,0,0,0,0,1,0,0,0,0,0,0,0,0.1
+43,Secret key ABC123DEF456GHI789JKL012MNO345PQ.,CRITICAL,0,0,0,0,0,1,0,0,0,0,0,0,0,0.1
+44,Use key A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6.,CRITICAL,0,0,0,0,0,1,0,0,0,0,0,0,0,0.1
+45,Production token is 1234567890ABCDEFGHIJKLMNOPQRSTUV.,CRITICAL,0,0,0,0,0,1,0,0,0,0,0,0,0,0.1
+46,John Smith approved the report.,MEDIUM,0,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+47,Mary Johnson submitted feedback.,MEDIUM,0,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+48,James Wilson attended the meeting.,MEDIUM,0,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+49,Emily Brown requested access.,MEDIUM,0,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+50,Michael Taylor updated documentation.,MEDIUM,0,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+51,Sarah Davis reviewed the proposal.,MEDIUM,0,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+52,David Miller sent an email.,MEDIUM,0,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+53,Jessica Moore joined yesterday.,MEDIUM,0,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+54,Chris Thomas completed onboarding.,MEDIUM,0,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+55,Daniel White scheduled training.,MEDIUM,0,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+56,Microsoft released a patch.,MEDIUM,0,0,0,0,0,0,0,1,0,0,0,0,0,0.1
+57,Google announced new AI tools.,MEDIUM,0,0,0,0,0,0,0,1,0,0,0,0,0,0.1
+58,Apple updated macOS.,MEDIUM,0,0,0,0,0,0,0,1,0,0,0,0,0,0.1
+59,Amazon launched a feature.,MEDIUM,0,0,0,0,0,0,0,1,0,0,0,0,0,0.1
+60,OpenAI published a paper.,MEDIUM,0,0,0,0,0,0,0,1,0,0,0,0,0,0.1
+61,Tell me about Project Sakura.,CRITICAL,0,0,0,0,0,0,0,1,0,0,0,1,0,0.1
+62,Project Sakura timeline.,CRITICAL,0,0,0,0,0,0,0,0,0,0,0,1,0,0.1
+63,Who works on Sakura?,CRITICAL,0,0,0,0,0,0,0,0,0,1,0,1,0,0.1
+64,Summarize Project Sakura.,CRITICAL,0,0,0,0,0,0,0,0,0,0,0,1,0,0.1
+65,Show Sakura documentation.,CRITICAL,0,0,0,0,0,0,0,0,0,0,1,1,0,0.1
+66,Discuss Project Titan.,CRITICAL,0,0,0,0,0,0,0,0,0,0,1,0,1,0.1
+67,Titan release schedule.,CRITICAL,0,0,0,0,0,0,0,0,0,0,1,0,1,0.1
+68,Titan roadmap.,CRITICAL,0,0,0,0,0,0,0,0,0,0,0,0,1,0.1
+69,Titan architecture.,CRITICAL,0,0,0,0,0,0,0,0,0,0,0,0,1,0.1
+70,Explain Project Titan.,CRITICAL,0,0,0,0,0,0,0,0,0,0,1,0,1,0.1
+71,What is Sakura?,CRITICAL,0,0,0,0,0,0,1,0,0,0,0,1,0,0.1
+72,Who owns Titan?,CRITICAL,0,0,0,0,0,0,0,1,0,0,0,0,1,0.1
+73,Sakura milestones.,CRITICAL,0,0,0,0,0,0,0,0,0,0,0,1,0,0.1
+74,Titan meeting notes.,CRITICAL,0,0,0,0,0,0,0,0,0,0,0,0,1,0.1
+75,Project Apollo customer migration details.,CRITICAL,0,0,0,0,0,0,0,0,0,0,0,1,0,0.1
+76,Customer migration plan for Apollo.,CRITICAL,0,0,0,0,0,0,0,1,0,0,0,1,0,0.1
+77,Apollo migration status.,CRITICAL,0,0,0,0,0,0,0,1,0,0,0,1,0,0.1
+78,Apollo customer rollout.,CRITICAL,0,0,0,0,0,0,0,1,0,0,0,1,0,0.1
+79,Apollo migration risks.,CRITICAL,0,0,0,0,0,0,0,1,0,0,0,1,0,0.1
+80,My name is John Smith and my email is john@example.com.,CRITICAL,1,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+81,Jane Doe can be reached at jane@test.org.,CRITICAL,1,0,0,0,0,0,1,0,0,0,0,0,0,0.1
+82,Call Sarah on +44 7700900123.,CRITICAL,0,1,0,0,0,0,1,0,0,0,0,0,0,0.1
+83,Email Bob at bob@example.com regarding Sakura.,CRITICAL,1,0,0,0,0,0,1,0,0,0,0,1,0,0.1
+84,API key ABCDEF1234567890ABCDEF1234567890 belongs to John.,CRITICAL,0,0,0,0,0,1,1,0,0,0,0,0,0,0.1
+85,My manager Sarah approved Project Sakura.,CRITICAL,0,0,0,0,0,0,1,0,0,0,1,1,0,0.1
+86,Contact Alice about Apollo customer migration.,CRITICAL,0,0,0,0,0,0,1,0,0,0,1,1,0,0.1
+87,Send Titan documents to admin@example.com.,CRITICAL,1,0,0,0,0,0,0,1,0,0,0,0,1,0.1
+88,Call Michael regarding Sakura.,CRITICAL,0,0,0,0,0,0,1,0,0,0,0,1,0,0.1
+89,API key and customer migration data attached.,CRITICAL,0,0,0,0,0,0,0,0,0,0,0,1,0,0.1
+90,Email John about Titan rollout.,CRITICAL,1,0,0,0,0,0,1,0,0,0,0,0,1,0.1
+91,I'm having a dispute with my manager over my performance review.,HIGH,0,0,0,0,0,0,0,0,0,0,0,0,0,0.397
+92,I want advice about my medical diagnosis.,HIGH,0,0,0,0,0,0,0,0,0,0,0,0,0,0.53
+93,Help me write about financial hardship.,HIGH,0,0,0,0,0,0,0,0,0,0,0,0,0,0.759
+94,I'm involved in a legal dispute with my employer.,HIGH,0,0,0,0,0,0,0,0,0,0,0,0,0,0.624
+95,I'm feeling emotionally distressed at work.,HIGH,0,0,0,0,0,0,0,0,0,0,0,0,0,0.553
+96,My disciplinary meeting is tomorrow.,HIGH,0,0,0,0,0,0,0,0,0,0,0,0,0,0.587
+97,My private medical records need summarizing.,HIGH,0,0,0,0,0,0,0,0,0,0,0,0,0,0.565
+98,I'm struggling with personal debt.,HIGH,0,0,0,0,0,0,0,0,0,0,0,0,0,0.516
+99,Describe an HR complaint involving two employees.,HIGH,0,0,0,0,0,0,0,0,0,0,0,0,0,0.901
+100,My personal circumstances are affecting work performance.,MEDIUM,0,0,0,0,0,0,0,0,0,0,0,0,0,0.458
