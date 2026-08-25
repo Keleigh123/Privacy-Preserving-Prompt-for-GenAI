@@ -1,5 +1,3 @@
-# Risk Weights
-
 REGEX_WEIGHTS = {
     "EMAIL_ADDRESS": 43,
     "PHONE_NUMBER": 41,

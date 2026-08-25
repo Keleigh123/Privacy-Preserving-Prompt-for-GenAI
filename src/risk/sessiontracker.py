@@ -1,25 +1,3 @@
-"""
-v2 of the session tracker, addressing two issues found during live testing
-against the real pipeline:
-
-1. WEIGHT-FILTERED COUNTING: previously every NER label counted equally
-   toward the escalation threshold, so three throwaway GPE/PRODUCT mentions
-   escalated a session just as fast as PERSON+EMAIL+ORG. Now a category
-   only counts if its own detector weight clears SIGNIFICANT_WEIGHT_THRESHOLD
-   -- so low-signal categories (GPE, PRODUCT) don't inflate the tally.
-
-2. DECAYING BONUS: previously, once escalated, the +25 bonus applied
-   forever, even after several fully clean turns. Now the bonus halves
-   after each consecutive clean turn (a turn with zero regex/NER/enterprise
-   hits at all) rather than staying flat or dropping to zero instantly --
-   the session "cools down" gradually instead of being permanently stuck
-   or forgetting disclosed information immediately.
-
-Falls back to a small built-in copy of the fitted weights if
-risk.risk_aggregator isn't importable (e.g. running outside the full
-project), so this module can still be tested standalone.
-"""
-
 try:
     from risk.risk_aggregator import REGEX_WEIGHTS, NER_WEIGHTS
 except ImportError:
@@ -70,8 +48,6 @@ class SessionRiskTracker:
                 self.seen_entity_values.add(value.strip().lower())
 
         for item in evidence.get("enterprise_matches", []):
-            # Enterprise matches are always significant -- both sensitivity
-            # tiers in enterprise.json carry weights well above the threshold.
             if item["project"] not in self.seen_enterprise_projects:
                 new_significant_this_turn = True
             self.seen_enterprise_projects.add(item["project"])
@@ -83,8 +59,6 @@ class SessionRiskTracker:
                 self.current_bonus = max(self.current_bonus / 2, self.decay_floor)
                 if self.current_bonus < 1:
                     self.current_bonus = self.decay_floor
-            # else: turn had some (non-new / sub-threshold) signal -- hold
-            # the bonus steady, neither boosting nor decaying it.
         else:
             self.current_bonus = 0
 

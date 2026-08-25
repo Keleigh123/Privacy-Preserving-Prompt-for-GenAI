@@ -1,19 +1,3 @@
-"""
-Calibrates REGEX_WEIGHTS / NER_WEIGHTS / ENTERPRISE_WEIGHT / thresholds
-against the labeled dataset extracted from your two tuning passes.
-
-Keeps the same *architecture* you already have (weighted sum -> thresholds,
-with a semantic-similarity fallback when nothing else fires) so the result
-drops straight back into risk_aggregator.py / risk_calculator.py. It just
-searches for better numbers than hand-tuning gives you, and adds one
-structural change: a co-occurrence bonus, since your data shows combos
-(name+email, name+enterprise-match) should score higher than the sum of
-their parts would otherwise give.
-
-Usage:
-    python fit_weights.py calibration_dataset.csv
-"""
-
 import sys
 import numpy as np
 import pandas as pd
@@ -48,12 +32,12 @@ def score_and_predict(X, sim, w, bonus, t1, t2, t3, s1, s2, s3):
     pred = np.zeros(len(X), dtype=int)
     has_signal = score > 0
 
-    # signal path: thresholds on 0-100 score
+    #thresholds on 0-100 score
     thresholds = sorted([t1, t2, t3])
     pred_signal = np.digitize(score, thresholds)  # 0..3
     pred = np.where(has_signal, pred_signal, pred)
 
-    # fallback path: semantic similarity only, when nothing else fired
+    #semantic similarity only, when nothing else fired
     sthresh = sorted([s1, s2, s3])
     pred_sem = np.digitize(sim, sthresh)
     pred = np.where(~has_signal, pred_sem, pred)
@@ -105,7 +89,6 @@ def main():
                                              best["t1"], best["t2"], best["t3"],
                                              best["s1"], best["s2"], best["s3"])
 
-    print("=== Best parameters (fit on train split) ===")
     print(f"Train accuracy: {best['acc']:.3f}   Train MAE(ordinal): {best['mae']:.3f}\n")
     print("REGEX_WEIGHTS =", {c: round(v, 1) for c, v in zip(REGEX_COLS, best["w"][:6])})
     print("NER_WEIGHTS   =", {c: round(v, 1) for c, v in zip(NER_COLS, best["w"][6:11])})
@@ -116,7 +99,7 @@ def main():
     print(f"semantic-fallback thresholds = "
           f"{best['s1']:.2f}, {best['s2']:.2f}, {best['s3']:.2f}\n")
 
-    print("=== Test split performance ===")
+    print("Test split performance")
     y_test, pred_test = y[test_idx], pred_all[test_idx]
     print(f"Test accuracy: {np.mean(y_test == pred_test):.3f}")
     print(f"Test MAE(ordinal): {np.mean(np.abs(y_test - pred_test)):.3f}\n")

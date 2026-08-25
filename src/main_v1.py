@@ -41,10 +41,6 @@ def level_from_score(score):
 
 
 def is_semantic_only_risk(evidence):
-    """True if risk came purely from the semantic fallback -- there's
-    nothing concrete in regex/ner/enterprise_matches for sanitize_prompt
-    to actually redact, so retrying sanitization would just repeat the
-    same result."""
     return (
         not evidence["regex"]
         and not evidence["ner"]
@@ -88,7 +84,7 @@ def process_turn(prompt, session, turn_number):
                 f"Rephrase to avoid describing this kind of situation in "
                 f"detail, or use a more appropriate channel for this content."
             )
-            return  # don't burn retry attempts on content with nothing to redact
+            return  
 
         if attempt == MAX_SANITIZE_ATTEMPTS:
             print(f"\nTurn {turn_number}: unable to sanitize sufficiently.")
@@ -99,19 +95,19 @@ def process_turn(prompt, session, turn_number):
         print(f"Sanitized: {current_prompt}")
 
 
-DEMO_PROMPTS = [
-    "My name is John Smith.",
-    "My email is john.smith@example.com.",
-    "I work on Project Sakura.",
-]
+# DEMO_PROMPTS = [
+#     "My name is John Smith.",
+#     "My email is john.smith@example.com.",
+#     "I work on Project Sakura.",
+# ]
 
 
-def run_demo():
-    print("=== mainv1 demo: proving session-level escalation across 3 turns ===")
-    session = SessionRiskTracker(escalation_threshold=3, escalation_bonus=25)
-    for i, prompt in enumerate(DEMO_PROMPTS, 1):
-        process_turn(prompt, session, i)
-    print("\n=== Demo finished ===")
+# def run_demo():
+#     print("=== mainv1 demo: proving session-level escalation across 3 turns ===")
+#     session = SessionRiskTracker(escalation_threshold=3, escalation_bonus=25)
+#     for i, prompt in enumerate(DEMO_PROMPTS, 1):
+#         process_turn(prompt, session, i)
+#     print("\n=== Demo finished ===")
 
 
 def run_interactive():
@@ -127,7 +123,7 @@ def run_interactive():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "demo":
-        run_demo()
-    else:
+    # if len(sys.argv) > 1 and sys.argv[1] == "demo":
+    #     run_demo()
+    # else:
         run_interactive()

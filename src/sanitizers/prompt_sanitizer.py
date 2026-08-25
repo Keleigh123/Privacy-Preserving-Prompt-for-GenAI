@@ -8,9 +8,7 @@ def sanitize_prompt(prompt, evidence):
 
     sanitized = prompt
 
-    # --------------------
     # Regex -> Redaction
-    # --------------------
     for item in evidence["regex"]:
 
         item_type, value = item.split(": ", 1)
@@ -21,9 +19,7 @@ def sanitize_prompt(prompt, evidence):
             item_type
         )
 
-    # --------------------
     # NER -> Token replacement
-    # --------------------
     for item in evidence["ner"]:
 
         entity_type, entity = item.split(": ", 1)
@@ -34,9 +30,8 @@ def sanitize_prompt(prompt, evidence):
             entity_type
         )
 
-    # --------------------
+   
     # Enterprise -> Token replacement
-    # --------------------
     for item in evidence["enterprise_matches"]:
 
         sanitized = sanitized.replace(

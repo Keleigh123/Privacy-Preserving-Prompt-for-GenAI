@@ -73,7 +73,7 @@ Return only valid JSON.
 
 def main():
 
-    print("=== Prompt Privacy Detector ===")
+    print("Prompt Privacy Detector")
 
     original_prompt = input("Enter your prompt: ")
 
@@ -94,7 +94,7 @@ def main():
 
             print(current_prompt)
 
-            # send current_prompt to external LLM here
+            # send current prompt to external LLM here
 
             return
 
