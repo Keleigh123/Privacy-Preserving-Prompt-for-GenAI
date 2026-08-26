@@ -1,3 +1,5 @@
+# strips zero-width chars, maps,homoglyphs/leetspeak, collapses spaced-out text, and surfaces base64 payloads
+# before detectors ever see the prompt.
 import base64
 import re
 import unicodedata

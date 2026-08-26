@@ -1,3 +1,4 @@
+# Classifies prompt intent (EXPLOITATIVE/BENIGN/AMBIGUOUS) via cosine similarity
 from knowledge.embedding_model import embed
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np

@@ -1,8 +1,9 @@
+# Runs spaCy's transformer NER model and returns non-numeric entity types
 import spacy
 
 nlp = spacy.load("en_core_web_trf")
 
-IGNORE_LABELS = {
+IGNORE_LABELS = { # unnecessary noise that messes with the other detections and gives sensitivity scoring
     "CARDINAL",
     "ORDINAL",
     "DATE",

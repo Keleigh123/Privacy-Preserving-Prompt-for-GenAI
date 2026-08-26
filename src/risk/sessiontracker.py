@@ -1,3 +1,4 @@
+# Tracks distinct signal types/entities/projects seen across a session's turns.
 try:
     from risk.risk_aggregator import REGEX_WEIGHTS, NER_WEIGHTS
 except ImportError:

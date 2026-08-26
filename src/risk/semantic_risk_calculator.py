@@ -1,3 +1,5 @@
+# Embeds the prompt and a fixed list of "sensitive topic" categories,returns the single highest cosine similarity score.
+# Only called when regex/NER/enterprise all found nothing 
 from knowledge.embedding_model import embed
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np

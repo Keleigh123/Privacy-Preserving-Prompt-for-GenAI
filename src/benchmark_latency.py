@@ -1,4 +1,5 @@
-﻿import time
+﻿# Time taken at each pipeline stage (regex/NER/enterprise/semantic/intent/ollama)
+import time
 import csv
 import statistics
 from pathlib import Path
