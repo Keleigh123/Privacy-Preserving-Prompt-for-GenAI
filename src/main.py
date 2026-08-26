@@ -1,6 +1,9 @@
 # normalize -> analyse -> (sanitize if not LOW) loop,
 # up to MAX_SANITIZE_ATTEMPTS, then either approves or gives up.
 # explain_risk() calls a local Ollama model per pass
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
 from detectors.regex_detector import detect_regex
 from detectors.ner_detector import detect_entities
 from detectors.context_detector import get_enterprise_context
@@ -16,7 +19,9 @@ from risk.intent_detector import intent_risk_multiplier
 from ollama import chat
 
 MAX_SANITIZE_ATTEMPTS = 2
+load_dotenv()  # reads .env and loads OPENAI_API_KEY into the environment
 
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 def analyse_prompt(prompt):
     regex_results = detect_regex(prompt)
@@ -47,7 +52,6 @@ def analyse_prompt(prompt):
 
     return evidence
 
-
 def explain_risk(evidence):
 
     response = chat(
@@ -73,6 +77,12 @@ Return only valid JSON.
 
     return response["message"]["content"]
 
+def send_to_openai(prompt, model="gpt-4o-mini"):
+    response = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content
 
 def main():
 
@@ -97,7 +107,10 @@ def main():
 
             print(current_prompt)
 
-            # send current prompt to external LLM here
+            reply = send_to_openai(current_prompt)
+
+            print("\n--- ChatGPT response ---")
+            print(reply)
 
             return
 
